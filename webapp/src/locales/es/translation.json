@@ -1,0 +1,8 @@
+{
+    "welcome": "¡Bienvenidos a mi sitio web en español! check",
+    "description": {
+      "part1": "Este es un sitio web multilingüe creado con React e i18next.",
+      "part2": "Puede cambiar fácilmente entre diferentes idiomas usando el selector de idioma."
+    }
+  }
+  

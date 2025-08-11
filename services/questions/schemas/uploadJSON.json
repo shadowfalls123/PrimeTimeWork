@@ -1,0 +1,42 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "PK": {
+        "type": "string"
+      },
+      "SK": {
+        "type": "string"
+      },
+      "qt": {
+        "type": "string"
+      },
+      "a": {
+        "type": "string"
+      },
+      "o1": {
+        "type": "string"
+      },
+      "o2": {
+        "type": "string"
+      },
+      "o3": {
+        "type": "string"
+      },
+      "o4": {
+        "type": "string"
+      },
+      "o5": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "qe": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": true
+  }
+}

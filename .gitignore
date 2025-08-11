@@ -1,0 +1,92 @@
+#For Root Project
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+node_modules/
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# CDK
+infrastructure/cdk.out
+
+# React
+webapp/public/config.json
+webapp/build
+
+
+
+# For Webapp
+#amplify-do-not-edit-begin
+webapp/amplify/\#current-cloud-backend
+webapp/amplify/.config/local-*
+webapp/amplify/logs
+webapp/amplify/mock-data
+webapp/amplify/mock-api-resources
+webapp/amplify/backend/amplify-meta.json
+webapp/amplify/backend/.temp
+build/
+webapp/dist/
+webapp/node_modules/
+webapp/node_modules
+webapp/aws-exports.js
+webapp/awsconfiguration.json
+webapp/amplifyconfiguration.json
+webapp/amplifyconfiguration.dart
+webapp/amplify-build-config.json
+webapp/amplify-gradle-config.json
+webapp/amplifytools.xcconfig
+webapp/.secret-*
+webapp/**.sample
+#amplify-do-not-edit-end
+
+
+#For Infrastructure directory
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+infrastructure/node_modules
+infrastructure/node_modules/
+infrastructure/.pnp
+infrastructure/.pnp.js
+
+# testing
+infrastructure/coverage
+
+# production
+infrastructure/build
+
+# misc
+infrastructure/.DS_Store
+infrastructure/.env.local
+infrastructure/.env.development.local
+infrastructure/.env.test.local
+infrastructure/.env.production.local
+
+infrastructure/npm-debug.log*
+infrastructure/yarn-debug.log*
+infrastructure/yarn-error.log*
+
+# CDK
+infrastructure/cdk.out
+
+# React
+infrastructure/public/config.json
+infrastructure/build

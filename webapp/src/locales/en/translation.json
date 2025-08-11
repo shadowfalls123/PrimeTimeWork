@@ -1,0 +1,8 @@
+{
+    "welcome": "Welcome to my website!",
+    "description": {
+      "part1": "This is a multilingual website built with React and i18next.",
+      "part2": "You can easily switch between different languages using the language selector."
+    }
+  }
+  

@@ -1,0 +1,19 @@
+
+D:\KodingHut\2023\crack-my-exam-v4\webapp\src\aws-exports.js
+  6:5  error  'process' is not defined  no-undef
+
+D:\KodingHut\2023\crack-my-exam-v4\webapp\src\services\index.js
+    1:13  error  'mock' is defined but never used                  no-unused-vars
+   13:5   error  'process' is not defined                          no-undef
+  191:9   error  'myData' is assigned a value but never used       no-unused-vars
+  235:9   error  'jsonRowsStr' is assigned a value but never used  no-unused-vars
+  312:9   error  'myData' is assigned a value but never used       no-unused-vars
+
+D:\KodingHut\2023\crack-my-exam-v4\webapp\src\util\validateFileRecordCount.js
+  4:34  error  'reject' is defined but never used  no-unused-vars
+
+D:\KodingHut\2023\crack-my-exam-v4\webapp\src\util\validateFileSchema.js
+  4:34  error  'reject' is defined but never used  no-unused-vars
+
+✖ 8 problems (8 errors, 0 warnings)
+

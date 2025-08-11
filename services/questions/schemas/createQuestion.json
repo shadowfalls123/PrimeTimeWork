@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "PK": {
+      "type": "string"
+    },
+    "SK": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "paperid": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": true
+}

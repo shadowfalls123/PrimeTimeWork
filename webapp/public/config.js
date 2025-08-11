@@ -1,0 +1,1 @@
+window['appConfig'] = {"apiEndpointDev":"https://wbv15ge5fk.execute-api.us-east-1.amazonaws.com", "apiEndpointUat":"https://09ugkjo34i.execute-api.us-east-1.amazonaws.com", "apiEndpointProd":"https://781j3vn2gg.execute-api.us-east-1.amazonaws.com"};

@@ -1,0 +1,10 @@
+{
+    "name": "cme-comments-service",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+      "lambda-micro": "1.0.1"
+    }
+  }
+  

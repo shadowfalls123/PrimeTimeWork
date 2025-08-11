@@ -1,0 +1,6 @@
+projectKey=CMEv4
+serverUrl=http://localhost:90
+serverVersion=10.2.1.78527
+dashboardUrl=http://localhost:90/dashboard?id=CMEv4
+ceTaskId=AYvTUk5lhf2LtI-n8Y4Y
+ceTaskUrl=http://localhost:90/api/ce/task?id=AYvTUk5lhf2LtI-n8Y4Y

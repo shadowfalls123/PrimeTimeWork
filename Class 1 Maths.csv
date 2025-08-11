@@ -1,0 +1,9 @@
+﻿question,answer,option1,option2,option3,option4,answerExplanation,section,marks,negativeMarks
+What is 2 + 3?,3,4,6,5,7,The sum of 2 and 3 is 5.,Numbers,1,0
+How many sides does a square have?,2,3,4,5,6,A square has 4 equal sides.,Geometry,1,0
+Which number comes after 9?,2,8,10,11,12,After 9 comes 10 in the number sequence.,Numbers,1,0
+What shape does a ball have?,3,Square,Triangle,Sphere,Circle,A ball is in the shape of a sphere.,Geometry,1,0
+How many legs does a dog have?,2,2,4,6,8,A dog has 4 legs.,Numbers,1,0
+What time is it when the big hand is on 12 and the small hand is on 6?,2,3 o'clock,6 o'clock,9 o'clock,12 o'clock,"When the big hand is on 12 and the small hand is on 6, it's 6 o'clock.",Numbers,1,0
+How many days are there in a week?,3,5,6,7,8,There are 7 days in a week.,Numbers,1,0
+Count from 1 to 5. What comes after 5?,3,4,5,6,7,After 5 comes 6 in the number sequence.,Numbers,1,0
