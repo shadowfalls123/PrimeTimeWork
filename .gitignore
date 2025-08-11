@@ -90,3 +90,4 @@ infrastructure/cdk.out
 # React
 infrastructure/public/config.json
 infrastructure/build
+.env
