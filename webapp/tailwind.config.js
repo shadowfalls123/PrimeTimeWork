@@ -1,0 +1,176 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './index.html', 
+    './src/**/*.{js,ts,jsx,tsx}',
+    // Ensure we include all component files
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/theme/**/*.{js,ts,jsx,tsx}',
+  ],
+  // Enable JIT mode for better performance
+  mode: 'jit',
+  theme: {
+    extend: {
+      colors: {
+        sage: {
+          50: '#f6f7f6',
+          100: '#e3e6e3', 
+          200: '#c7cdc7',
+          300: '#a3ada3',
+          400: '#7d887d',
+          500: '#8FBC8F', // Main sage green
+          600: '#6b8e6b',
+          700: '#567356',
+          800: '#465d46',
+          900: '#3a4e3a',
+        },
+        wood: {
+          50: '#fdf8f3',
+          100: '#f7ede1',
+          200: '#eed8c2', 
+          300: '#e2ba95',
+          400: '#d4a574', // Wood accent color
+          500: '#c48c4e',
+          600: '#b67943',
+          700: '#966339',
+          800: '#795134',
+          900: '#62432c',
+        },
+        // Semantic colors
+        primary: {
+          50: '#f6f7f6',
+          100: '#e3e6e3', 
+          200: '#c7cdc7',
+          300: '#a3ada3',
+          400: '#7d887d',
+          500: '#8FBC8F',
+          600: '#6b8e6b',
+          700: '#567356',
+          800: '#465d46',
+          900: '#3a4e3a',
+        },
+        secondary: {
+          50: '#fdf8f3',
+          100: '#f7ede1',
+          200: '#eed8c2', 
+          300: '#e2ba95',
+          400: '#d4a574',
+          500: '#c48c4e',
+          600: '#b67943',
+          700: '#966339',
+          800: '#795134',
+          900: '#62432c',
+        },
+        // Status colors
+        success: {
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
+        },
+        warning: {
+          50: '#fffbeb',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#f59e0b',
+          600: '#d97706',
+          700: '#b45309',
+          800: '#92400e',
+          900: '#78350f',
+        },
+        error: {
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          300: '#fca5a5',
+          400: '#f87171',
+          500: '#ef4444',
+          600: '#dc2626',
+          700: '#b91c1c',
+          800: '#991b1b',
+          900: '#7f1d1d',
+        },
+        info: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
+        },
+      },
+      backgroundImage: {
+        'wood-texture': 'url("data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23d4a574" fill-opacity="0.1"%3E%3Cpath d="M20 20c0 11.046-8.954 20-20 20v-20h20zM0 0h20v20c0-11.046-8.954-20-20-20z"/%3E%3C/g%3E%3C/svg%3E")',
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      fontFamily: {
+        'sans': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+        'display': ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        'base': '18px', // Increase base font size for better readability
+        'xs': '0.75rem',
+        'sm': '0.875rem',
+        'lg': '1.125rem',
+        'xl': '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
+      },
+      boxShadow: {
+        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+        'card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      },
+      borderRadius: {
+        'xl': '0.75rem',
+        '2xl': '1rem',
+        '3xl': '1.5rem',
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'slide-down': 'slideDown 0.3s ease-out',
+        'scale-in': 'scaleIn 0.2s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+          '0%': { transform: 'translateY(-10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        scaleIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+      },
+    },
+  },
+  plugins: [],
+};

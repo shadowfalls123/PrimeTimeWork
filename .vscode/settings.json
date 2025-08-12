@@ -1,4 +1,5 @@
 {
     "aws.telemetry": false,
-    "amazonQ.telemetry": false
+    "amazonQ.telemetry": false,
+    "kiroAgent.configureMCP": "Disabled"
 }

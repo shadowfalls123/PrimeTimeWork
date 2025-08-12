@@ -1,72 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  IconButton,
-  Snackbar,
-} from "@mui/material";
-import { Close as CloseIcon, AddShoppingCart } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
+import { Card, CardContent } from "../../../ui/Card";
+import { Button } from "../../../ui/Button";
+import { Modal } from "../../../ui/Modal";
+import { Badge } from "../../../ui/Badge";
+import { ShoppingCart, X } from "lucide-react";
 import { RingLoadingIcon } from "../../LoadingIcon";
-import MuiAlert from "@mui/material/Alert";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(3),
-  },
-  cardWrapper: {
-    maxWidth: 280,
-    minWidth: 280,
-  },
-  card: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    height: 350, // Ensure uniform height
-  },
-  cardContent: {
-    flexGrow: 1,
-    overflow: "hidden", // Prevent overflow of long content
-  },
-  title: {
-    overflowY: "auto", // Enable scrolling for the title if needed
-    maxHeight: 80, // Set a maximum height for the title
-    textOverflow: "ellipsis",
-    WebkitLineClamp: 2, // Limit to 2 lines for title
-    WebkitBoxOrient: "vertical",
-    transition: "max-height 0.3s ease",
-  },
-  description: {
-    overflowY: "auto", // Enable scrolling for the description if needed
-    maxHeight: 150, // Set a maximum height for the description
-    textOverflow: "ellipsis",
-    // display: "-webkit-box",
-    WebkitLineClamp: 4, // Limit to 4 lines initially
-    WebkitBoxOrient: "vertical",
-    transition: "max-height 0.3s ease",
-    marginTop: theme.spacing(1), // Add spacing between description and title
-    marginBottom: theme.spacing(1), // Add spacing between description and price
-  },
-  // descriptionExpanded: {
-  //   overflowY: "auto", // Enable scrolling for expanded content
-  //   maxHeight: 300, // Set a maximum height for scrolling
-  // },
-  // showMoreButton: {
-  //   marginTop: theme.spacing(1),
-  // },
-  cardActions: {
-    marginTop: "auto", // Push actions to the bottom of the card
-  },
-}));
 
 const PackagesGrid = ({
   packages,
@@ -82,143 +21,123 @@ const PackagesGrid = ({
   userCourses,
   handleTitleClick,
 }) => {
-  const classes = useStyles();
-  // const [expandedDescription, setExpandedDescription] = useState({});
-
-  // const toggleDescription = (id) => {
-  //   setExpandedDescription((prevState) => ({
-  //     ...prevState,
-  //     [id]: !prevState[id],
-  //   }));
-  // };
-
   return (
-    <div className={classes.root}>
-      <Snackbar
-        open={isSnackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-      >
-        <MuiAlert onClose={handleSnackbarClose} severity="error">
-          {snackbarMessage}
-        </MuiAlert>
-      </Snackbar>
+    <div className="py-6">
+      {/* Snackbar/Toast equivalent */}
+      {isSnackbarOpen && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-down">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 shadow-lg flex items-center space-x-3">
+            <div className="text-red-800">{snackbarMessage}</div>
+            <button
+              onClick={handleSnackbarClose}
+              className="text-red-400 hover:text-red-600"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        </div>
+      )}
 
       {isLoading ? (
-        <div>
+        <div className="flex justify-center py-12">
           <RingLoadingIcon />
         </div>
       ) : (
-        <Grid container spacing={2}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {packages.length > 0 ? (
-            packages.map((pkg) => (
-              <Grid item key={pkg.packid} className={classes.cardWrapper}>
-                <Card className={classes.card}>
-                  <CardContent className={classes.cardContent}>
-                  <div className={classes.title}>
-                    <Typography
-                      variant="h7"
-                      onClick={() => handleTitleClick(pkg)}
-                      gutterBottom
-                      style={{
-                        textDecoration: "underline",
-                        color: "blue",
-                        cursor: "pointer",
-                      }}
-                    >
-                      {pkg.packTitle}
-                    </Typography>
-                    </div>
-                    <div className={classes.description}>
-                      <Typography
-                        variant="body2"
-                        component="p"
-                        color="textSecondary"
-                      >
-                        {pkg.packDesc}
-                      </Typography>
-                    </div>
-                    {/* {pkg.packDesc.length > 100 && (
-                      <Button
-                        size="small"
-                        className={classes.showMoreButton}
-                        onClick={() => toggleDescription(pkg.packid)}
-                      >
-                        {expandedDescription[pkg.packid]
-                          ? "Show Less"
-                          : "Show More"}
-                      </Button>
-                    )} */}
-                    <Typography variant="h7" style={{ marginTop: "10px" }}>
-                      {`₹ ${pkg.packPrice}`}
-                    </Typography>
-                  </CardContent>
-                  <CardActions className={classes.cardActions}>
+            packages.map((pkg, index) => (
+              <Card 
+                key={pkg.packid} 
+                hover 
+                className="h-full flex flex-col animate-slide-up"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <CardContent className="flex-1 flex flex-col">
+                  {/* Title */}
+                  <h3
+                    onClick={() => handleTitleClick(pkg)}
+                    className="text-lg font-semibold text-sage-600 hover:text-sage-700 cursor-pointer underline mb-3 line-clamp-2 min-h-[3.5rem]"
+                  >
+                    {pkg.packTitle}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-600 text-sm mb-4 flex-1 line-clamp-4">
+                    {pkg.packDesc}
+                  </p>
+
+                  {/* Price */}
+                  <div className="mb-4">
+                    <span className="text-2xl font-bold text-gray-900">
+                      ₹{pkg.packPrice}
+                    </span>
+                  </div>
+
+                  {/* Action Button */}
+                  <div className="mt-auto">
                     {userCourses.some((course) => course.packid === pkg.packid) ? (
                       <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        className={classes.button}
+                        variant="outline"
+                        size="sm"
                         disabled
+                        className="w-full"
                       >
                         Pack Already Purchased
                       </Button>
                     ) : pkg.isInCart ? (
                       <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
+                        variant="primary"
+                        size="sm"
                         onClick={handleGoToCart}
-                        className={classes.button}
+                        className="w-full"
                       >
+                        <ShoppingCart size={16} className="mr-2" />
                         Go to Cart
                       </Button>
                     ) : (
                       <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        startIcon={<AddShoppingCart />}
+                        variant="primary"
+                        size="sm"
                         onClick={() => handleAddToCart(pkg)}
-                        className={classes.button}
+                        className="w-full"
                       >
-                        Add to cart
+                        <ShoppingCart size={16} className="mr-2" />
+                        Add to Cart
                       </Button>
                     )}
-                  </CardActions>
-                </Card>
-              </Grid>
+                  </div>
+                </CardContent>
+              </Card>
             ))
           ) : (
-            <Grid item xs={12}>
-              <Typography variant="body1">Packages not available.</Typography>
-            </Grid>
+            <div className="col-span-full text-center py-12">
+              <p className="text-gray-500 text-lg">Packages not available.</p>
+            </div>
           )}
-
-          <Dialog open={isAddedToCart} onClose={handleClose}>
-            <DialogTitle className={classes.dialogTitle}>
-              <Typography variant="h7">Added to Cart</Typography>
-              <IconButton className={classes.closeButton} onClick={handleClose}>
-                <CloseIcon />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent>
-              <Typography variant="h7">
-                {selectedPackage && selectedPackage.packTitle}
-              </Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleGoToCart} color="primary">
-                Go to Cart
-              </Button>
-              <Button onClick={handleClose} color="secondary">
-                Close
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Grid>
+        </div>
       )}
+
+      {/* Modal for Added to Cart */}
+      <Modal
+        isOpen={isAddedToCart}
+        onClose={handleClose}
+        title="Added to Cart"
+        size="sm"
+      >
+        <div className="space-y-4">
+          <p className="text-gray-600">
+            {selectedPackage && selectedPackage.packTitle}
+          </p>
+          <div className="flex justify-end space-x-3">
+            <Button variant="outline" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleGoToCart}>
+              Go to Cart
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

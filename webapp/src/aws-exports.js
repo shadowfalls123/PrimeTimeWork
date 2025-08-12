@@ -4,9 +4,9 @@ import configUat from './config.uat';
 
 let config;
 
-if (process.env.REACT_APP_ENV === 'production') {
+if (import.meta.env.VITE_APP_ENV === 'production') {
     config = configProd;
-  } else if (process.env.REACT_APP_ENV === 'uat') {
+  } else if (import.meta.env.VITE_APP_ENV === 'uat') {
     config = configUat; // Assuming you have a separate configuration for UAT
   } else {
     config = configDev;

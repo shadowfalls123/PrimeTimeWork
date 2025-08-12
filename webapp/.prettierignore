@@ -1,0 +1,9 @@
+build
+dist
+node_modules
+*.min.js
+*.min.css
+package-lock.json
+yarn.lock
+.git
+.DS_Store

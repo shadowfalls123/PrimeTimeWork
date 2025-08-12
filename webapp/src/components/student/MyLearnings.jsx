@@ -1,93 +1,18 @@
 import React, { useState, useEffect } from "react";
 import logger from "../../util/logger";
-import { makeStyles } from "@mui/styles";
-import {
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-//  Avatar,
-  Snackbar,
-} from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
-//import { AddShoppingCart } from "@mui/icons-material";
-import { Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { BookOpen, Star, Search, X } from "lucide-react";
+import { Card, CardContent } from "../ui/Card";
+import { Button } from "../ui/Button";
+import { Badge } from "../ui/Badge";
 import { getMyLearningPacks } from "../../services";
 import { RingLoadingIcon } from "../common/LoadingIcon";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    overflowX: "scroll",
-    padding: theme.spacing(2),
-    "&::-webkit-scrollbar": {
-      height: "0.5em",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: theme.palette.grey[500],
-      borderRadius: "1em",
-    },
-    "&::-webkit-scrollbar-track": {
-      borderRadius: "1em",
-    },
-  },
-  card: {
-    minWidth: 280,
-    maxWidth: 280,
-    margin: theme.spacing(1),
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: theme.shape.borderRadius,
-    transition: "box-shadow 0.3s",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "stretch",
-    height: "100%",
-    overflow: "hidden",
-  },
-  cardContent: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    flex: 1,
-    overflowY: "auto",
-  },
-  avatar: {
-    width: theme.spacing(5),
-    height: theme.spacing(5),
-  },
-  button: {
-    marginTop: theme.spacing(2),
-  },
-  title: {
-    overflowY: "auto", // Enable scrolling for the title if needed
-    maxHeight: 80, // Set a maximum height for the title
-    textOverflow: "ellipsis",
-    WebkitLineClamp: 2, // Limit to 2 lines for title
-    WebkitBoxOrient: "vertical",
-    transition: "max-height 0.3s ease",
-  },
-  description: {
-    overflowY: "auto", // Enable scrolling for the description if needed
-    maxHeight: 150, // Set a maximum height for the description
-    textOverflow: "ellipsis",
-    // display: "-webkit-box",
-    WebkitLineClamp: 4, // Limit to 4 lines initially
-    WebkitBoxOrient: "vertical",
-    transition: "max-height 0.3s ease",
-    marginTop: theme.spacing(1), // Add spacing between description and title
-    marginBottom: theme.spacing(1), // Add spacing between description and price
-  },
-}));
 
 // Check the environment variable to determine the current environment
 const isDevelopment = process.env.REACT_APP_ENV === "development";
 
 const MyLearnings = () => {
   const navigate = useNavigate();
-  const classes = useStyles();
 
   const [packs, setPacks] = useState([]);
   const [trasformedPacks, setTrasformedPacks] = useState([]);
@@ -172,115 +97,127 @@ const MyLearnings = () => {
 
   };
 
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
+  const handleSnackbarClose = () => {
     setIsSnackbarOpen(false);
   };
 
+  const renderStars = (rating) => {
+    return (
+      <div className="flex items-center space-x-1">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star
+            key={star}
+            size={16}
+            className={`${
+              star <= rating
+                ? 'text-yellow-400 fill-current'
+                : 'text-gray-300'
+            }`}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <div className={classes.root}>
-      <Typography
-        variant="h5"
-        align="center"
-        sx={{ marginBottom: "20px", fontWeight: "bold" }}
-      >
-        My Learnings
-      </Typography>
-      <Snackbar
-        open={isSnackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-      >
-        <MuiAlert onClose={handleSnackbarClose} severity="error">
-          {snackbarMessage}
-        </MuiAlert>
-      </Snackbar>
+    <div className="container-padding content-max-width py-8">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">My Learnings</h1>
+        <p className="text-gray-600">Track your purchased courses and continue your learning journey</p>
+      </div>
+
+      {/* Toast/Snackbar */}
+      {isSnackbarOpen && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-down">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 shadow-lg flex items-center space-x-3">
+            <div className="text-red-800">{snackbarMessage}</div>
+            <button
+              onClick={handleSnackbarClose}
+              className="text-red-400 hover:text-red-600"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        </div>
+      )}
+
       {isLoading ? (
-        <div>
+        <div className="flex justify-center py-12">
           <RingLoadingIcon />
         </div>
       ) : (
         <>
           {trasformedPacks.length === 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <br />
-              {/* <Typography variant="h6" component="p"> */}
-
-                <Typography variant="h6" component="p">
-                It looks like you haven&apos;t purchased any exam courses yet. Don&apos;t worry, it&apos;s not too late! Our expert-led courses are designed to help you succeed and ace your exams. Get started today and unlock your potential.
-                </Typography>
-                <br />
-                {/* <Typography variant="h6" component="p">
-                  Unlock your full potential with our exclusive exam courses! By purchasing our courses, you&apos;ll gain the knowledge and tools necessary to excel in your exams and take a confident step towards success. Ready to take your learning to the next level?
-                </Typography> */}
-                
-              {/* </Typography> */}
-
-              <br />
-              <Button variant="contained" color="secondary" onClick={handleSearchClick} sx={{ marginTop: 2 }}>
+            <div className="text-center py-12">
+              <div className="p-4 bg-sage-100 rounded-full w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                <BookOpen className="h-12 w-12 text-sage-600" />
+              </div>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                Start Your Learning Journey
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+                It looks like you haven't purchased any exam courses yet. Don't worry, it's not too late! 
+                Our expert-led courses are designed to help you succeed and ace your exams. Get started today and unlock your potential.
+              </p>
+              <Button 
+                variant="secondary" 
+                size="lg"
+                onClick={handleSearchClick}
+              >
+                <Search className="h-4 w-4 mr-2" />
                 Search Packages
               </Button>
             </div>
           ) : (
-            <Grid container>
-              {trasformedPacks.map((pack) => (
-                <Grid item key={pack.packid}>
-                  <Card className={classes.card}>
-                    <CardContent className={classes.cardContent}>
-                    <div>  
-                      <div className={classes.title}>
-                        <Typography variant="h7" gutterBottom>
-                          {pack.packtitle}
-                        </Typography>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                        </div>
-                        <div className={classes.description}>
-                        <Typography
-                          variant="body2"
-                          component="p"
-                          color="textSecondary"
-                        >
-                          {pack.packdesc}
-                        </Typography>
-                        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {trasformedPacks.map((pack, index) => (
+                <Card 
+                  key={pack.packid} 
+                  hover 
+                  className="h-full flex flex-col animate-slide-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardContent className="flex-1 flex flex-col">
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]">
+                      {pack.packtitle}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-gray-600 text-sm mb-4 flex-1 line-clamp-4">
+                      {pack.packdesc}
+                    </p>
+
+                    {/* Rating */}
+                    <div className="mb-4">
+                      <div className="flex items-center space-x-2 mb-1">
+                        {renderStars(pack.prating)}
+                        <span className="text-sm font-medium text-gray-700">
+                          {pack.prating}
+                        </span>
                       </div>
-                      <div>
-                        <Rating
-                          name={`rating-${pack.packid}`}
-                          value={pack.prating}
-                          precision={0.5}
-                          readOnly
-                        />
-                        <Typography variant="body2">
-                          {`${pack.prating} (${pack.noofreviews} ${
-                            pack.noofreviews === 1 ? "rating" : "ratings"
-                          })`}
-                        </Typography>
-                      </div>
-                    </CardContent>
-                    <CardActions>
+                      <p className="text-xs text-gray-500">
+                        {pack.noofreviews} {pack.noofreviews === 1 ? "rating" : "ratings"}
+                      </p>
+                    </div>
+
+                    {/* Action Button */}
+                    <div className="mt-auto">
                       <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        className={classes.button}
+                        variant="primary"
+                        size="sm"
                         onClick={() => handleViewSelect(pack)}
+                        className="w-full"
                       >
+                        <BookOpen size={16} className="mr-2" />
                         View Pack
                       </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
-            </Grid>
+            </div>
           )}
         </>
       )}

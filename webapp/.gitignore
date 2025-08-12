@@ -32,6 +32,7 @@ amplifytools.xcconfig
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -46,3 +47,19 @@ yarn-error.log*
 
 #temp file
 AAAFileForCompare.jsx
+
+# Vite
+.vite/
+*.local
+
+# TypeScript
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db

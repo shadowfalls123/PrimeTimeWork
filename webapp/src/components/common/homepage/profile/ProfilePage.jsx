@@ -3,12 +3,13 @@ import { Grid, Typography, Button, Paper, Container } from "@mui/material";
 import ImageUploader from "./ImageUploader";
 import ProfileForm from "./ProfileForm";
 import countries from "i18n-iso-countries";
+import enLocale from "i18n-iso-countries/langs/en.json";
 import { getUserProfile, updateUserProfile, updateUserProfileImage, deleteUserProfileImage } from "../../../../services";
 import { encryptData, decryptData } from "../../../../util/cryptoUtils"; // Make sure these are correctly defined
 import { RingLoadingIcon } from "../../../common/LoadingIcon";
 import logger from "../../../../util/logger";
 
-countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+countries.registerLocale(enLocale);
 
 const countryEntries = Object.entries(countries.getNames("en")).map(
   ([code, name]) => ({ code, name })

@@ -1,87 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import logger from "../../util/logger";
-import { useLocation } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
-import {
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Avatar,
-  Snackbar,
-} from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
-//import { AddShoppingCart } from "@mui/icons-material";
-import { Rating } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { BookOpen, Star, User, Clock, Target, ArrowLeft, X, Play, RotateCcw } from "lucide-react";
+import { Card, CardContent } from "../ui/Card";
+import { Button } from "../ui/Button";
+import { Badge } from "../ui/Badge";
 import { getPackCoursesForUser } from "../../services";
 import { RingLoadingIcon } from '../common/LoadingIcon';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    overflowX: "scroll",
-    padding: theme.spacing(2),
-    "&::-webkit-scrollbar": {
-      height: "0.5em",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: theme.palette.grey[500],
-      borderRadius: "1em",
-    },
-    "&::-webkit-scrollbar-track": {
-      borderRadius: "1em",
-    },
-  },
-  card: {
-    minWidth: 280,
-    maxWidth: 280,
-    margin: theme.spacing(1),
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: theme.shape.borderRadius,
-    transition: "box-shadow 0.3s",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "stretch",
-    height: "100%",
-    overflow: "hidden",
-  },
-  cardContent: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    flex: 1,
-    overflowY: "auto",
-  },
-  avatar: {
-    width: theme.spacing(5),
-    height: theme.spacing(5),
-  },
-  button: {
-    marginTop: theme.spacing(2),
-  },
-  title: {
-    overflowY: "auto", // Enable scrolling for the title if needed
-    maxHeight: 80, // Set a maximum height for the title
-    textOverflow: "ellipsis",
-    WebkitLineClamp: 2, // Limit to 2 lines for title
-    WebkitBoxOrient: "vertical",
-    transition: "max-height 0.3s ease",
-  },
-  description: {
-    overflowY: "auto", // Enable scrolling for the description if needed
-    maxHeight: 150, // Set a maximum height for the description
-    textOverflow: "ellipsis",
-    // display: "-webkit-box",
-    WebkitLineClamp: 4, // Limit to 4 lines initially
-    WebkitBoxOrient: "vertical",
-    transition: "max-height 0.3s ease",
-    marginTop: theme.spacing(1), // Add spacing between description and title
-    marginBottom: theme.spacing(1), // Add spacing between description and price
-  },
-}));
+
 
 // Check the environment variable to determine the current environment
 const isDevelopment = process.env.REACT_APP_ENV === 'development';
@@ -89,12 +16,9 @@ const isDevelopment = process.env.REACT_APP_ENV === 'development';
 const MyCourses = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const classes = useStyles();
   const [pack, setPack] = useState();
 
-    // Assigning state value to a variable
-//    const selectedPack  = location.state && location.state.pack;
-    const selectedPack = location.state?.selectedPack || null;
+  const selectedPack = location.state?.selectedPack || null;
   const [papers, setPapers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -194,122 +118,200 @@ useEffect(() => {
     }
   };
 
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  const handleSnackbarClose = () => {
     setIsSnackbarOpen(false);
   };
 
   const getUserColor = (firstName, lastName) => {
-    // Generate a consistent color based on the user's first and last name
     const fullName = firstName.toLowerCase() + lastName.toLowerCase();
     const hash = fullName.split('').reduce((acc, char) => {
       return acc + char.charCodeAt(0);
     }, 0);
-    const colors = ['#F44336', '#9C27B0', '#2196F3', '#FFEB3B', '#4CAF50', '#FF5722']; // Define a set of colors
-    const index = Math.abs(hash % colors.length); // Get the remainder to select a color
+    const colors = ['#8FBC8F', '#d4a574', '#22c55e', '#f59e0b', '#3b82f6', '#ef4444'];
+    const index = Math.abs(hash % colors.length);
     return colors[index];
+  };
+
+  const renderStars = (rating) => {
+    return (
+      <div className="flex items-center space-x-1">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star
+            key={star}
+            size={16}
+            className={`${
+              star <= rating
+                ? 'text-yellow-400 fill-current'
+                : 'text-gray-300'
+            }`}
+          />
+        ))}
+      </div>
+    );
   };
   
   return (
-    <div className={classes.root}>
-            <Typography variant="h5" align="center" sx={{ marginBottom: '20px', fontWeight: 'bold' }}>
-        My Courses
-      </Typography>
-            <Snackbar open={isSnackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
-        <MuiAlert onClose={handleSnackbarClose} severity="error">
-          {snackbarMessage}
-        </MuiAlert>
-      </Snackbar>
-      {isLoading ? (
-      <div>
-        <RingLoadingIcon />
+    <div className="container-padding content-max-width py-8">
+      {/* Header */}
+      <div className="mb-8">
+        <div className="flex items-center space-x-3 mb-4">
+          <BookOpen className="h-8 w-8 text-sage-600" />
+          <h1 className="text-3xl font-bold text-gray-900">My Courses</h1>
+        </div>
+        {selectedPack && (
+          <div className="bg-sage-50 border border-sage-200 rounded-lg p-4">
+            <h2 className="text-lg font-semibold text-sage-800 mb-1">
+              {selectedPack.packTitle}
+            </h2>
+            <p className="text-sage-600 text-sm">
+              {selectedPack.packDesc}
+            </p>
+          </div>
+        )}
       </div>
-    ) : (
-      <>
-        {papers.length === 0 ? (
-          <Typography variant="h6" component="p">
-            Currently, you have not purchased any exams courses. Enhance your learning journey by acquiring our courses and unlock the path to success. 
-          </Typography>
-        ) : (
-      <Grid container>
-        {papers.map((paper) => (
-          <Grid item key={paper.pid}>
-            <Card className={classes.card}>
-              <CardContent className={classes.cardContent}>
-                <div>
-                <div className={classes.title}>
-                    <Typography variant="h7" gutterBottom>
-                      {paper.papertitle}
-                    </Typography>
-                  </div>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Typography variant="subtitle1" component="p" gutterBottom>
-                      by {paper.guruname}
-                    </Typography>
-                <Avatar
-                  style={{
-                    backgroundColor: getUserColor(paper.firstname, paper.lastname),
-                    color: "#fff",
-                  }}
-                  className={classes.avatar}
-                >
-                  {paper.firstname.charAt(0)} {paper.lastname.charAt(0)}
-                </Avatar>
-                  </div>
-                  <div className={classes.description}>
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      {paper.paperdesc}
-                    </Typography>
-                  </div>
-                </div>
-                <div>
-                    <Rating
-                      name={`rating-${paper.pid}`}
-                      value={paper.prating}
-                      precision={0.5}
-                      readOnly
-                    />
-                  <Typography variant="body2">
-                    {`${paper.prating} (${paper.noofreviews} ${paper.noofreviews === 1 ? 'rating' : 'ratings'})`}
-                  </Typography>
-                </div>
-              </CardContent>
-              <CardActions>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  className={classes.button}
-                  onClick={() => handleTakeExam(paper)}
-                >
-                  {paper.examtaken === 1 ? "Review Exam" : "Take Exam"}
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-      )}
-      </>
-    )}
-    <br /><br />
-    <Button
-  variant="contained"
-  color="primary"
-  onClick={() => navigate(-1)} // Navigate to the previous page
-  sx={{ marginBottom: '20px' }} // Add spacing below the button
->
-  Back
-</Button>
 
+      {/* Toast/Snackbar */}
+      {isSnackbarOpen && (
+        <div className="fixed top-4 right-4 z-50 animate-slide-down">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 shadow-lg flex items-center space-x-3">
+            <div className="text-red-800">{snackbarMessage}</div>
+            <button
+              onClick={handleSnackbarClose}
+              className="text-red-400 hover:text-red-600"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {isLoading ? (
+        <div className="flex justify-center py-12">
+          <RingLoadingIcon />
+        </div>
+      ) : (
+        <>
+          {papers.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="p-4 bg-sage-100 rounded-full w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                <BookOpen className="h-12 w-12 text-sage-600" />
+              </div>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                No Courses Available
+              </h2>
+              <p className="text-gray-600 max-w-md mx-auto">
+                Currently, you have not purchased any exam courses. Enhance your learning journey by acquiring our courses and unlock the path to success.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {papers.map((paper, index) => (
+                <Card 
+                  key={paper.pid} 
+                  hover 
+                  className="h-full flex flex-col animate-slide-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardContent className="flex-1 flex flex-col">
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]">
+                      {paper.papertitle}
+                    </h3>
+
+                    {/* Instructor */}
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div 
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-medium"
+                        style={{ backgroundColor: getUserColor(paper.firstname, paper.lastname) }}
+                      >
+                        {paper.firstname.charAt(0)}{paper.lastname.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-700">
+                          by {paper.guruname}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-gray-600 text-sm mb-4 flex-1 line-clamp-3">
+                      {paper.paperdesc}
+                    </p>
+
+                    {/* Course Info */}
+                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                      <div className="flex items-center space-x-1">
+                        <Target className="h-4 w-4" />
+                        <span>{paper.qcount} questions</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Clock className="h-4 w-4" />
+                        <span>{paper.examtime} min</span>
+                      </div>
+                    </div>
+
+                    {/* Difficulty and Category */}
+                    <div className="flex items-center space-x-2 mb-4">
+                      <Badge variant="outline" size="sm">
+                        {paper.category}
+                      </Badge>
+                      <Badge variant="info" size="sm">
+                        {paper.difflvl}
+                      </Badge>
+                    </div>
+
+                    {/* Rating */}
+                    <div className="mb-4">
+                      <div className="flex items-center space-x-2 mb-1">
+                        {renderStars(paper.prating)}
+                        <span className="text-sm font-medium text-gray-700">
+                          {paper.prating}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500">
+                        {paper.noofreviews} {paper.noofreviews === 1 ? "rating" : "ratings"}
+                      </p>
+                    </div>
+
+                    {/* Action Button */}
+                    <div className="mt-auto">
+                      <Button
+                        variant={paper.examtaken === 1 ? "outline" : "primary"}
+                        size="sm"
+                        onClick={() => handleTakeExam(paper)}
+                        className="w-full"
+                      >
+                        {paper.examtaken === 1 ? (
+                          <>
+                            <RotateCcw size={16} className="mr-2" />
+                            Review Exam
+                          </>
+                        ) : (
+                          <>
+                            <Play size={16} className="mr-2" />
+                            Take Exam
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Back Button */}
+      <div className="mt-8 flex justify-start">
+        <Button
+          variant="outline"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft size={16} className="mr-2" />
+          Back
+        </Button>
+      </div>
     </div>
   );
 };

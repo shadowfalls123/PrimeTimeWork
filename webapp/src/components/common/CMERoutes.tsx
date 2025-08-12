@@ -1,7 +1,5 @@
 import React from "react";
-//import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Route, Routes } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Home from "./homepage/Home";
 import AboutUs from "./homepage/AboutUs";
 import TermsAndConditions from "./TermsAndConditions/TermsAndConditions";
@@ -11,18 +9,18 @@ import PrivacyPolicy from "./TermsAndConditions/PrivacyPolicy";
 import CountactUs from "./homepage/ContactUs";
 import UploadFileList from "../tutor/UploadFileList";
 import PrivateRoutes from "./PrivateRoutes";
-import LoginPage from "./Auth/LoginPage";
+import LoginPageNew from "./Auth/LoginPageNew";
 import CallBack from "./Auth/CallBack";
-import ExamPage from "../student/ExamPage";
+import ExamPageNew from "../student/ExamPageNew";
 import MyCourses from "../student/MyCourses";
 import MyLearnings from "../student/MyLearnings";
-import StudentDashboard from "../student/DashboardStudent";
+import StudentDashboardNew from "../student/DashboardStudentNew";
 import TutorDashboard from "../tutor/DashboardTutor";
 import ExamInstructions from "../student/ExamInstructions";
 // import StudentVideoSession from "../student/StudentVideoSession";
 //import TutorRegistration from "../tutor/TutorRegistration";
 import CreatePackage from "../tutor/CreatePackage";
-import CreateExam from "../tutor/CreateExam";
+import CreateExamNew from "../tutor/CreateExamNew";
 import EditExam from "../tutor/EditExam";
 import EditPack from "../tutor/EditPack";
 import ViewPack from "../tutor/ViewPublishPack";
@@ -32,11 +30,11 @@ import MyPacks from "../tutor/MyPacks";
 import AddQuestions from "../tutor/AddQuestions";
 import ReviewQuestions from "../tutor/ReviewQuestions";
 // import TutorVideoSession from "../tutor/TutorVideoSession";
-import ShoppingCartCME from "../purchase/ShoppingCartCME";
+import ShoppingCartNew from "../purchase/ShoppingCartNew";
 import CheckOut from "../purchase/CheckOut";
 import PaymentConfirmation from "../purchase/PaymentConfirmation";
 import SearchPaperPage from "./homepage/Papers/SearchPaperPage";
-import SearchPackages from "./homepage/Packages/SearchPackages";
+import SearchPackagesNew from "./homepage/Packages/SearchPackagesNew";
 // import SearchPage from "./homepage/Packages/SearchPage";
 //import Profile from "./Profile";
 import ProfilePage from "./homepage/profile/ProfilePage";
@@ -48,16 +46,9 @@ import ReviewAnswers from "../student/ReviewAnswers";
 // import CatchGames from "../Fun/CatchGames";
 // import ChessGame from "../Fun/Chess/ChessGameWithComputer";
 
-const theme = createTheme({
-  typography: {
-    fontFamily: ["Roboto", "sans-serif"].join(","),
-  },
-});
-
-const CMERoutes = () => {
+const CMERoutes: React.FC = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Routes>
+    <Routes>
         <Route path="/" element={<Home />} />
         {/* <Route path="/catchgame" element={<CatchGames />} />
         <Route path="/chess" element={<ChessGame />} /> */}
@@ -75,8 +66,8 @@ const CMERoutes = () => {
         />
 
         {/* Redirecting to /login in both the url calls, login and logout. /logout is configutred in the callback */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/logout" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPageNew />} />
+        <Route path="/logout" element={<LoginPageNew />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/shipping-policy" element={<ShippingPolicy />} />
@@ -91,7 +82,7 @@ const CMERoutes = () => {
           path="/exam"
           element={
             <PrivateRoutes>
-              <ExamPage />{" "}
+              <ExamPageNew />
             </PrivateRoutes>
           }
         />
@@ -151,7 +142,7 @@ const CMERoutes = () => {
           path="/dashboards"
           element={
             <PrivateRoutes>
-              <StudentDashboard />
+              <StudentDashboardNew />
             </PrivateRoutes>
           }
         />
@@ -200,7 +191,7 @@ const CMERoutes = () => {
           path="/createexam"
           element={
             <PrivateRoutes>
-              <CreateExam />
+              <CreateExamNew />
             </PrivateRoutes>
           }
         />
@@ -246,7 +237,7 @@ const CMERoutes = () => {
           }
         />
         
-        <Route path="/cart" element={<ShoppingCartCME />} />
+        <Route path="/cart" element={<ShoppingCartNew />} />
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/confirmation" element={<PaymentConfirmation />} />
         <Route
@@ -278,7 +269,7 @@ const CMERoutes = () => {
           path="/searchpack"
           element={
             <PrivateRoutes>
-              <SearchPackages />
+              <SearchPackagesNew />
             </PrivateRoutes>
           }
         />
@@ -292,7 +283,6 @@ const CMERoutes = () => {
           }
         />
       </Routes>
-    </ThemeProvider>
   );
 };
 

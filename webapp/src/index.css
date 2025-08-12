@@ -1,24 +1,358 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-    color:red;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-:root{
-
-  --amplify-primary-color: #3F51B5;
-  --amplify-primary-tint: #3F51B5; 
-  --amplify-primary-shade: #3F51B5;
-
-
-
+@layer base {
+  html {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
   }
+
+  body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+}
+
+@layer components {
+  /* Button variants */
+  .btn-primary {
+    @apply bg-sage-500 hover:bg-sage-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-wood-400 hover:bg-wood-500 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-wood-400 focus:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply border-2 border-sage-500 text-sage-700 hover:bg-sage-50 font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2;
+  }
+
+  .btn-ghost {
+    @apply text-sage-700 hover:bg-sage-50 font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2;
+  }
+
+  /* AWS Amplify UI Overrides */
+  [data-amplify-authenticator] {
+    @apply w-full;
+  }
+
+  .amplify-tabs {
+    @apply w-full border-0;
+  }
+
+  .amplify-tabs__list {
+    @apply flex border-b border-gray-200 mb-6 bg-transparent;
+  }
+
+  .amplify-tabs__item {
+    @apply flex-1 py-3 px-4 text-center text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors duration-200 bg-transparent;
+  }
+
+  .amplify-tabs__item--active {
+    @apply text-sage-600 border-sage-500 bg-transparent;
+  }
+
+  .amplify-tabs__panel {
+    @apply w-full;
+  }
+
+  /* Amplify Form Styles */
+  .amplify-field {
+    @apply mb-4 w-full;
+  }
+
+  .amplify-textfield,
+  .amplify-passwordfield {
+    @apply w-full;
+  }
+
+  .amplify-label {
+    @apply block text-sm font-medium text-gray-700 mb-2;
+  }
+
+  .amplify-input {
+    @apply block w-full rounded-lg border border-gray-300 px-3 py-2 text-base placeholder-gray-400 shadow-sm transition-colors duration-200 focus:border-sage-500 focus:outline-none focus:ring-1 focus:ring-sage-500 bg-white;
+  }
+
+  .amplify-input:focus {
+    @apply border-sage-500 ring-1 ring-sage-500;
+  }
+
+  .amplify-input:invalid {
+    @apply border-red-300 focus:border-red-500 focus:ring-red-500;
+  }
+
+  .amplify-button {
+    @apply font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .amplify-button--primary {
+    @apply bg-sage-500 hover:bg-sage-600 text-white py-2 px-4 focus:ring-sage-500 w-full;
+  }
+
+  .amplify-button--link {
+    @apply text-sage-600 hover:text-sage-700 underline bg-transparent border-0 p-0;
+  }
+
+  .amplify-button--fullwidth {
+    @apply w-full;
+  }
+
+  .federated-sign-in-button {
+    @apply w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2 transition-colors duration-200 mb-4;
+  }
+
+  .federated-sign-in-icon {
+    @apply w-5 h-5 mr-3;
+  }
+
+  .amplify-divider {
+    @apply my-6 border-gray-200 relative;
+  }
+
+  .amplify-divider--horizontal {
+    @apply border-t border-gray-200;
+  }
+
+  .amplify-divider[data-label="or"] {
+    @apply text-center;
+  }
+
+  .amplify-divider[data-label="or"]::before {
+    @apply absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-gray-500 px-3 text-sm;
+    content: "or";
+  }
+
+  .amplify-field-group__control.amplify-field__show-password {
+    @apply text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2 rounded-md bg-transparent border-0 p-2;
+  }
+
+  .amplify-field-group {
+    @apply relative w-full;
+  }
+
+  .amplify-field-group--horizontal {
+    @apply flex items-center w-full;
+  }
+
+  .amplify-field-group__outer-end {
+    @apply absolute right-0 top-0 h-full flex items-center pr-3 z-10;
+  }
+
+  .amplify-field-group__field-wrapper {
+    @apply w-full;
+  }
+
+  .amplify-field-group__field-wrapper--horizontal {
+    @apply w-full flex-1;
+  }
+
+  /* Flex container adjustments */
+  .amplify-flex {
+    @apply flex;
+  }
+
+  .amplify-flex[style*="flex-direction: column"] {
+    @apply flex-col space-y-4;
+  }
+
+  .federated-sign-in-container {
+    @apply mb-6;
+  }
+
+  /* Ensure proper spacing for password fields */
+  .amplify-passwordfield .amplify-field-group {
+    @apply relative;
+  }
+
+  .amplify-passwordfield .amplify-input {
+    @apply pr-12;
+  }
+
+  /* Form fieldset styling */
+  .amplify-flex fieldset {
+    @apply border-0 p-0 m-0 w-full;
+  }
+
+  /* Text styling */
+  .amplify-text {
+    @apply text-sm;
+  }
+
+  /* Visually hidden elements */
+  .amplify-visually-hidden {
+    @apply sr-only;
+  }
+
+  /* Icon styling */
+  .amplify-icon {
+    @apply inline-block;
+  }
+
+  /* Remove default margins and padding from Amplify containers */
+  [data-amplify-container] {
+    @apply w-full;
+  }
+
+  [data-amplify-router] {
+    @apply w-full;
+  }
+
+  [data-amplify-form] {
+    @apply w-full;
+  }
+
+  /* Alert/Error message styling */
+  .amplify-alert {
+    @apply p-3 rounded-lg mb-4;
+  }
+
+  .amplify-alert--error {
+    @apply bg-red-50 border border-red-200 text-red-800;
+  }
+
+  .amplify-alert--info {
+    @apply bg-blue-50 border border-blue-200 text-blue-800;
+  }
+
+  /* Card variants */
+  .card {
+    @apply bg-white rounded-xl shadow-card hover:shadow-card-hover transition-shadow duration-200 border border-gray-200;
+  }
+
+  .card-interactive {
+    @apply card hover:-translate-y-1 cursor-pointer;
+  }
+
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-100;
+  }
+
+  .card-content {
+    @apply px-6 py-4;
+  }
+
+  .card-footer {
+    @apply px-6 py-4 border-t border-gray-100 bg-gray-50 rounded-b-xl;
+  }
+
+  /* Form elements */
+  .form-input {
+    @apply block w-full rounded-lg border border-gray-300 px-3 py-2 text-base placeholder-gray-400 shadow-sm transition-colors duration-200 focus:border-sage-500 focus:outline-none focus:ring-1 focus:ring-sage-500 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500;
+  }
+
+  .form-input-error {
+    @apply form-input border-red-300 focus:border-red-500 focus:ring-red-500;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 mb-2;
+  }
+
+  .form-error {
+    @apply mt-2 text-sm text-red-600;
+  }
+
+  .form-helper {
+    @apply mt-2 text-sm text-gray-500;
+  }
+
+  /* Badge variants */
+  .badge {
+    @apply inline-flex items-center justify-center font-medium rounded-full transition-colors duration-200;
+  }
+
+  .badge-sm {
+    @apply badge px-2 py-0.5 text-xs;
+  }
+
+  .badge-md {
+    @apply badge px-2.5 py-1 text-sm;
+  }
+
+  .badge-lg {
+    @apply badge px-3 py-1.5 text-base;
+  }
+
+  .badge-default {
+    @apply bg-sage-100 text-sage-800 border border-sage-200;
+  }
+
+  .badge-success {
+    @apply bg-success-100 text-success-800 border border-success-200;
+  }
+
+  .badge-warning {
+    @apply bg-warning-100 text-warning-800 border border-warning-200;
+  }
+
+  .badge-error {
+    @apply bg-error-100 text-error-800 border border-error-200;
+  }
+
+  .badge-info {
+    @apply bg-info-100 text-info-800 border border-info-200;
+  }
+
+  /* Layout utilities */
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  .content-max-width {
+    @apply max-w-7xl mx-auto;
+  }
+
+  /* Animation utilities - these are already defined in Tailwind config */
+
+  /* Focus utilities */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2;
+  }
+
+  .focus-ring-inset {
+    @apply focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-inset;
+  }
+}
+
+/* AWS Amplify theme customization */
+:root {
+  --amplify-primary-color: #8FBC8F;
+  --amplify-primary-tint: #a3c9a3; 
+  --amplify-primary-shade: #7aa67a;
+  --amplify-colors-brand-primary-10: #f6f7f6;
+  --amplify-colors-brand-primary-20: #e3e6e3;
+  --amplify-colors-brand-primary-40: #a3ada3;
+  --amplify-colors-brand-primary-60: #7d887d;
+  --amplify-colors-brand-primary-80: #8FBC8F;
+  --amplify-colors-brand-primary-90: #6b8e6b;
+  --amplify-colors-brand-primary-100: #567356;
+}
